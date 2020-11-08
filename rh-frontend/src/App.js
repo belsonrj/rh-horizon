@@ -1,26 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
+//import {fetchUsers} from './actions/fetchUsers'
+import UsersContainer from './containers/UsersContainer'
 
 class App extends React.Component {
 
-  componentDidMount() {
-    fetch('http://localhost:3001/api/v1/users', {
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
-  }
 
   render() {
     return (
       <div className="App">
-        App
+        <UsersContainer />
       </div>
     );
     }
 }
 
-export default App;
+//const mapStateToProps = (state) => {
+//  return {
+//    artists: state.artists
+//  }
+//}
+
+export default (App)
