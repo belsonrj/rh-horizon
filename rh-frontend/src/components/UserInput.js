@@ -15,6 +15,10 @@ class UserInput extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault()
         this.props.addUser(this.state)
+        this.setState({
+            name: '',
+            password_digest: ''
+        })
     }
 
     render() {
@@ -24,7 +28,7 @@ class UserInput extends React.Component {
                 <label>User Name: </label><br/>
                 <input type='text' placeholder='Name' value={this.state.name} name='name' onChange={this.handleChange}/><br/>
                 <label>Password: </label><br/>
-                <input type='text' placeholder='Password' value={this.state.password_digest} name='password_digest' onChange={this.handleChange}/>
+                <input type='text' placeholder='Password' value={this.state.password_digest} name='password_digest' onChange={this.handleChange}/><br/>
                 <input type='submit' /><br/><br/>
             </form>
           </div>

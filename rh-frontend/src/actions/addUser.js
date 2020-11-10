@@ -9,6 +9,6 @@ export const addUser = (data) => {
             body: JSON.stringify(data)
         })
         .then(response => response.json())
-        .then(user => dispatch({type: 'ADD_USER', payload: user}))
+        .then(users => dispatch({type: 'ADD_USER', payload: users}))
     }
 }
