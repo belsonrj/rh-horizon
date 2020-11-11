@@ -12,6 +12,14 @@ export default function userReducer(state = {users: []}, action) {
           return user
         }
       })}
+    case 'DELETE_ARTIST':
+      return {...state, users: state.users.map(user => {
+        if (user.id === action.payload.id) {
+          return action.payload
+        } else {
+          return user
+        }
+      })}
     default: 
       return state
   }

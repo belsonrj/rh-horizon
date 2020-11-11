@@ -1,16 +1,26 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {deleteArtist} from '../actions/deleteArtist';
+import Artist from '../components/Artist';
 
 const Artists = (props) => {
+
+const handleDelete = (artist) => {
+    props.deleteArtist(artist.id, artist.user_id)
+}
+
     return (
         <div>
             Artists:
-            {props.artitsts && props.artists.map(artist => 
+            {props.artists && props.artists.map(artist => 
               <li key={artist.id}>
-                {artist.name}
+                <Link to={`/users/${artist.user_id}/artists/${artist.id}`}>{artist.name}</Link> 
+                    <button onClick={() => handleDelete(artist)}>Delete</button>
               </li>
                 )}
         </div>
     )
 }
 
-export default Artists
+export default connect(null, {deleteArtist})(Artists)
