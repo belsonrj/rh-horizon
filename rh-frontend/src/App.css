@@ -1,0 +1,57 @@
+.primary-text {
+    color: #252627;
+  }
+  
+  .secondary-background {
+    background-color: #63A46C!important;
+  }
+  
+  .tertiary-background {
+    background-color: #4B88A2!important;
+    border-color:  #4B88A2!important;
+  }
+  
+  .quartinary-background {
+    background-color: #E7E3DA!important;
+  }
+  
+  .secondary-text {
+    color: #E7E3DA!important;
+  }
+  
+  .card-img{
+    width: 8rem;
+  }
+  
+  .icon {
+    width: 1.25rem;
+  }
+  
+  .icon-label {
+    vertical-align: -moz-middle-with-baseline;
+    vertical-align: -webkit-baseline-middle;
+  }
+  
+  .link {
+    vertical-align: baseline!important;
+    padding: 0!important;
+  }
+  
+  .modal {
+    display: block!important;
+  }
+  
+  .nav-item{
+    margin: .25rem .5rem .25rem .5rem;
+  }
+  
+  .non-button{
+    background: none!important;
+    border: none;
+    padding: 0!important;
+    cursor: pointer;
+  }
+  
+  .sub-form-group{
+    margin-bottom: 0px;
+  }

@@ -4,22 +4,22 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router } from 'react-router-dom';
-import userReducer from './reducers/userReducer';
-
+//import userReducer from './reducers/userReducer';
 import App from './App';
+import './index.css'
+import rootReducer from './reducers/rootReducer'
+//import { BrowserRouter as Router } from 'react-router-dom';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-let store = createStore(userReducer, composeEnhancers(applyMiddleware(thunk)))
+let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
+  <React.StrictMode>
+    <Provider store={store}>
       <App />
-    </Router>
-  </Provider>,
-
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

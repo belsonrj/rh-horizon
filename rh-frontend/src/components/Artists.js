@@ -15,7 +15,7 @@ const handleDelete = (artist) => {
             Artists:
             {props.artists && props.artists.map(artist => 
               <li key={artist.id}>
-                <Link to={`/users/${artist.user_id}/artists/${artist.id}`}>{artist.name}</Link> 
+                <Link to={`/users/${artist.user_id}/artists/${artist.id}`}> {artist.name}</Link> 
                     <button onClick={() => handleDelete(artist)}>Delete</button>
               </li>
                 )}

@@ -1,24 +1,25 @@
 import React from 'react';
-//import { connect } from 'react-redux';
-//import {fetchUsers} from './actions/fetchUsers'
-import UsersContainer from './containers/UsersContainer'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import './App.css';
+//import NavBar from './components/NavBar'
+import UserContainer from './containers/UserContainer'
+import EventContainer from './containers/EventContainer'
 
-class App extends React.Component {
 
-
-  render() {
+  function App() {
     return (
-      <div className="App">
-        <UsersContainer />
-      </div>
+      <Router>        
+        <div className="container">
+          <Switch>
+          <Route exact path="/" render={props => <EventContainer {...props}/>} />
+          <Route path="/logout" render={props => <UserContainer {...props}/>}/>
+          <Route path="/login" render={props => <UserContainer {...props} previousUrl={props.location.previousUrl}/>} />
+          <Route path="/signup" render={props => <UserContainer {...props} />} />
+          <Route path="/events" render={props => <EventContainer {...props}/>} />
+          </Switch>
+        </div>
+      </Router>
     );
-    }
-}
-
-//const mapStateToProps = (state) => {
-//  return {
-//    artists: state.artists
-//  }
-//}
-
-export default (App)
+  }
+  
+  export default App;

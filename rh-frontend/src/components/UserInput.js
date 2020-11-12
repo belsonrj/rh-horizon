@@ -4,7 +4,7 @@ import {addUser} from '../actions/addUser'
 
 class UserInput extends React.Component {
 
-    state = {name: '', password_digest: ''}
+    state = {username: '', password_digest: ''}
 
     handleChange = (event) => {
         this.setState({
@@ -16,7 +16,7 @@ class UserInput extends React.Component {
         event.preventDefault()
         this.props.addUser(this.state)
         this.setState({
-            name: '',
+            username: '',
             password_digest: ''
         })
     }
