@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import ArtistEdit from '../components/ArtistEdit'
+import ArtistEdit from '../ArtistEdit'
 
 
 const Artist = (props) => {

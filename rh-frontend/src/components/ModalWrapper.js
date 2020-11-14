@@ -1,5 +1,5 @@
 import React from 'react'
-//import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const ModalWrapper = props => {
   return(
@@ -8,7 +8,9 @@ const ModalWrapper = props => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">{props.title}</h5>
-
+            <Link to={props.previousUrl} type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </Link>
           </div>
           <div className="modal-body">
             {props.children}
@@ -20,7 +22,3 @@ const ModalWrapper = props => {
 }
 
 export default ModalWrapper
-
-//<Link to={props.previousUrl} type="button" className="close" data-dismiss="modal" aria-label="Close">
-//<span aria-hidden="true">&times;</span>
-//</Link>

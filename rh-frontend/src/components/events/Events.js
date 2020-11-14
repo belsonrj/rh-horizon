@@ -7,7 +7,7 @@ const Events = props => {
     
   return (
     <>
-      <Link to={`api/v1/events/new`}>
+      <Link to={`/events/new`}>
         <h5 className="my-3">
           <img className="icon" src={addIcon} alt="add button"></img>
           <span className="mx-2 primary-text badge">Add Event</span>

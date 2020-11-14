@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css';
-//import NavBar from './components/NavBar'
+import NavBar from './components/NavBar'
 import UserContainer from './containers/UserContainer'
 import EventContainer from './containers/EventContainer'
 
 
   function App() {
     return (
-      <Router>        
+      <Router>  
+        <NavBar />      
         <div className="container">
           <Switch>
           <Route exact path="/" render={props => <EventContainer {...props}/>} />

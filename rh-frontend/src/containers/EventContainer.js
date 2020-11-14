@@ -8,7 +8,7 @@ import EventForm from '../components/events/EventForm'
 import Events from '../components/events/Events'
 import Event from '../components/events/Event'
 import ModalWrapper from '../components/ModalWrapper'
-import NavBar from '../components/NavBar'
+//import NavBar from '../components/NavBar'
 //import UserContainer from './UserContainer'
 
 class EventContainer extends React.Component {
@@ -28,18 +28,17 @@ class EventContainer extends React.Component {
   render(){
     return(
       <div>
-        <NavBar />
         <Switch>
           <Route exact path={`${this.props.match.path}/new`}>
-            <>
+            
               <ModalWrapper title="Add Event" id="add-resource-form" previousUrl={this.props.match.url}>
-                <EventForm 
+                <EventForm
                   addEvent={this.props.addEvent} 
                   events={this.props.events} 
                 />
               </ModalWrapper>
             
-            </>
+            
           </Route> 
           <Route path={`${this.props.match.path}/:id`} render={props =>
             <Event

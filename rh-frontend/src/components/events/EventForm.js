@@ -1,32 +1,27 @@
-import React from 'react';
+import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { handleSubmit } from '../../utilities'
-//import ArtistForm from '../components/artists/ArtistForm';
-//import VenueForm from '../components/venues/VenueForm';
+import '../../stylesheets/resources.css'
 
 class EventForm extends React.Component {
 
-    state = {
-        name: '',
-        date: '',
-        url: ''
-    }
+  static cleanState = {
+    name: "",
+    date: "",
+    url: "",
+    submitted: false
+  }
 
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
+  state = {
+    ...this.constructor.cleanState
+  }
 
-    handleSubmit = (event) => {
-        event.preventDefault()
-        this.props.addEvent(this.state, this.props.id)
-        this.setState({
-            name: '',
-            date: '',
-            url: ''
-        })
-    }
+  handleInputChange = e => {
+    let value;
+    this.setState({
+      [e.target.name]: value
+    })
+  }
 
     render(){
         if (this.state.submitted){
