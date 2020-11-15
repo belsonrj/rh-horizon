@@ -1,34 +1,53 @@
-import cuid from 'cuid'
-
-function eventsReducer(state = {list: [], loadStatus:null}, action){
+function eventsReducer(state = {list: [], loadStatus: null, eventAdded: null, artistAdded: null}, action){
   switch(action.type){
+    case "START_ADD":
+      const tempEvent = { 
+        ...action.tempEvent,
+        artists: [],
+        temp: true }
+      return {
+        list: [...state.list, tempEvent],
+        loadStatus: state.loadStatus,
+        eventAdded: null,
+        artistAdded: state.artistAdded
+      }
+    
+    case "START_ARTIST_ADD":
+      return {
+        list: state.list,
+        loadStatus: state.loadStatus,
+        eventAdded: state.eventAdded,
+        artistAdded: null
+      }
+
     case "ADD_EVENT":
       const newEvent = {
-        ...action.event,
-        id: cuid(),
-        rating: 0
+        ...action.respEvent,
       }
       return {
-        list: [...state.list, newEvent],
-        loadStatus: state.loadStatus
-      }
-    case "ADD_EVENTS":
-      return {
-        list: [...state.list, ...action.events],
-        loadStatus: "complete",
+        list: [...state.list.filter(evnt => !evnt.temp), newEvent],
+        loadStatus: state.loadStatus,
+        eventAdded: action.respEvent,
+        artistAdded: state.artistAdded
       }
     case "LOAD_EVENTS":
       return {
         list: [...state.list],
-        loadStatus: "pending"
+        loadStatus: "pending",
+        eventAdded: state.eventAdded,
+        artistAdded: state.artistAdded
       }
-    case 'FETCH_EVENTS':
+    case "ADD_EVENTS":
       return {
-        list: [...state.list],
-        loadStatus: "pending"
+        list: [...action.events],
+        loadStatus: "complete",
+        eventAdded: state.eventAdded,
+        artistAdded: state.artistAdded
       }
-    default:
-      return state
+
+
+    default: 
+      return state 
   }
 }
 

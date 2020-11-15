@@ -4,6 +4,7 @@ import './App.css';
 import NavBar from './components/NavBar'
 import UserContainer from './containers/UserContainer'
 import EventContainer from './containers/EventContainer'
+import Home from './components/Home'
 
 
   function App() {
@@ -12,7 +13,7 @@ import EventContainer from './containers/EventContainer'
         <NavBar />      
         <div className="container">
           <Switch>
-          <Route exact path="/" render={props => <EventContainer {...props}/>} />
+          <Route exact path="/" render={props => <Home {...props}/>} />
           <Route path="/logout" render={props => <UserContainer {...props}/>}/>
           <Route path="/login" render={props => <UserContainer {...props} previousUrl={props.location.previousUrl}/>} />
           <Route path="/signup" render={props => <UserContainer {...props} />} />

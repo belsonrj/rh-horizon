@@ -1,3 +1,5 @@
+import * as Cookies from "js-cookie"
+
 let BASE_URL;
 if (process.env.NODE_ENV === 'production'){
   BASE_URL = 'http://localhost:3001/api/v1/events'
@@ -5,29 +7,21 @@ if (process.env.NODE_ENV === 'production'){
   BASE_URL = 'http://localhost:3001/api/v1/events'
 }
 
-function addEvent(events){
+const token = () => Cookies.get("eventSession")
+
+function fetchEvents(){
   const configObj = {
-    method: 'POST',
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json'
+      Accept: 'application/json',
+      Authorization: token()
     },
-    body: JSON.stringify(events)
+    credentials: 'include'
   }
-
-  return (dispatch) => {
-    dispatch({
-      type: "ADD_EVENT",
-      events
-    })
-    fetch(BASE_URL, configObj)
-  }
-}
-
-function fetchUserEvents(subject="all"){
-  return (dispatch) => {
+  return dispatch => {
     dispatch({type: 'LOAD_EVENTS'})
-    fetch(BASE_URL)
+    fetch(BASE_URL, configObj)
       .then(resp => resp.json())
       .then(events => dispatch({
         type: "ADD_EVENTS",
@@ -36,21 +30,28 @@ function fetchUserEvents(subject="all"){
   }
 }
 
-function fetchEvents() {
+
+function addEvent(evnt){
+  const configObj = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: token()
+    },
+    credentials: 'include',
+    body: JSON.stringify(evnt)
+  }
+
   return (dispatch) => {
-    fetch('http://localhost:3001/api/v1/events', {
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }
-  
-      })
+    dispatch({type: "START_ADD", tempEvent: evnt})
+    fetch(BASE_URL, configObj)
       .then(resp => resp.json())
-      .then(events => dispatch({
-        type: 'FETCH_EVENTS',
-        payload: events
-    }))   
+      .then(respEvent => dispatch({
+        type: "ADD_EVENT",
+        respEvent
+      }))
   }
 }
 
-export { addEvent, fetchUserEvents, fetchEvents }
+export { addEvent, fetchEvents }
