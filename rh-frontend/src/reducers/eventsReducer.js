@@ -1,54 +1,36 @@
-function eventsReducer(state = {list: [], loadStatus: null, eventAdded: null, artistAdded: null}, action){
-  switch(action.type){
-    case "START_ADD":
-      const tempEvent = { 
-        ...action.tempEvent,
-        artists: [],
-        temp: true }
-      return {
-        list: [...state.list, tempEvent],
-        loadStatus: state.loadStatus,
-        eventAdded: null,
-        artistAdded: state.artistAdded
-      }
-    
-    case "START_ARTIST_ADD":
-      return {
-        list: state.list,
-        loadStatus: state.loadStatus,
-        eventAdded: state.eventAdded,
-        artistAdded: null
-      }
+export default function eventsReducer(state = {users: [], events: []}, action) {
+  switch (action.type) {
+    case 'FETCH_EVENTS':
+      return {events: action.payload}
 
-    case "ADD_EVENT":
-      const newEvent = {
-        ...action.respEvent,
-      }
-      return {
-        list: [...state.list.filter(evnt => !evnt.temp), newEvent],
-        loadStatus: state.loadStatus,
-        eventAdded: action.respEvent,
-        artistAdded: state.artistAdded
-      }
-    case "LOAD_EVENTS":
-      return {
-        list: [...state.list],
-        loadStatus: "pending",
-        eventAdded: state.eventAdded,
-        artistAdded: state.artistAdded
-      }
-    case "ADD_EVENTS":
-      return {
-        list: [...action.events],
-        loadStatus: "complete",
-        eventAdded: state.eventAdded,
-        artistAdded: state.artistAdded
-      }
-
-
-    default: 
-      return state 
+    case 'ADD_EVENTS':
+      let users = state.users.map(user => {
+        if (users.current.id === action.payload.id) {
+          return action.payload
+        } else {
+          return user
+        }
+      })
+      return {...state, users: users}
+    case 'DELETE_TRANSACTION':
+      let usersTwo = state.users.map(user => {
+        if (user.current.id === action.payload.id) {
+          return action.payload
+        } else {
+          return user
+        }
+      })
+      return {...state, users: usersTwo}
+    case 'EDIT_ACCOUNT':
+      let usersThree = state.users.map(user => {
+        if (user.current.id === action.payload.id) {
+          return action.payload
+        } else {
+          return user
+        }
+      })
+      return {...state, users: usersThree}
+    default:
+      return state
   }
 }
-
-export default eventsReducer

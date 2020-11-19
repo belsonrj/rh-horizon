@@ -1,91 +1,65 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
-import { addEvent, fetchEvents } from '../actions/eventActions'
+import { fetchUserEvents } from '../actions/eventActions'
+import {addEvent} from '../actions/addEvent'
 import { authorizeUser, loginUser } from '../actions/userActions'
 //import { findEvent } from '../utilities'
 import EventForm from '../components/events/EventForm'
 import Events from '../components/events/Events'
 import Event from '../components/events/Event'
 import ModalWrapper from '../components/ModalWrapper'
-//import NavBar from '../components/NavBar'
-import UserContainer from './UserContainer'
+import NavBar from '../components/NavBar'
 
 class EventContainer extends React.Component {
+
   
   componentDidMount(){
-    this.props.fetchEvents()
     this.props.authorizeUser()
+    //this.props.fetchUserEvents(this.props.user.current.id)
+    
+  }
+
+  componentDidUpdate(prevProps){
+    if (prevProps.user.valid !== this.props.user.valid){
+      this.props.fetchUserEvents(this.props.user.current.id)
+    }
   }
 
   findEvent = id => {
-    return this.props.events.find(event => event.id === parseInt(id,10))
+    return this.props.user.events.find(event => event.id === parseInt(id,10))
   }
 
   render(){
-    return(
-      <div>
-        <Switch>
-          <Route path={`${this.props.match.path}/new`} render={props => {
-            if (this.props.user.valid){ 
-              return(
-                <>
-                  <ModalWrapper title="Add Event" id="playlist-add-form" previousUrl="/events">
-                    <EventForm
-                      {...props}
-                      addEvent={this.props.addEvent}
-                      clearState={{name: ""}}
-                    />
-                  </ModalWrapper>
-                  <Events 
-                      events={this.props.events}
-                      user={this.props.user}
-                      match={{path: "events"}}
-                  />
-                </>
-              ) 
-            } else {
-              return (
-                <>
-                  <UserContainer previousUrl={this.props.match.url}/>
-                  <Events 
-                      events={this.props.events}
-                      user={this.props.user}
-                      match={{path: "events"}}
-                  />
-                </>
-              )
-            }
-          }}/>
-          <Route path={`${this.props.match.path}/:id`} render={props => 
-            <Event 
-              {...props}
-              event={this.findEvent(props.match.params.id)}
-              loadStatus={this.props.loadStatus}
-              //removeArtistFromEvent={this.props.removeArtistFromEvent}
-              //isArtistInEvent={artistId => isArtistInEvent.call(this, artistId)}
-            />          
-          }/>
-          <Route path={`${this.props.match.path}`} render={props => 
-            <Events {...props} events={this.props.events} user={this.props.user}/>          
-          }/>
-        </Switch>
-      </div>
-    )
+    let events = this.props.events
+      return (
+          <div>          
+            <Switch>
+              <Route path='/events/new' render={(routerProps) => <EventForm {...routerProps} user={this.props.user.current}/>}/>
+              <Route path='/events/:id' render={(routerProps) => <Event {...routerProps} events={this.props.events}/>}/>
+            </Switch>
+            <h3>{`${this.props.user.current.username}'s Events:`}</h3> 
+            <Events events={events}/>
+         </div>
+      )
   }
 }
+      
+    
+  
+
 
 const mapStateToProps = state => ({
   user: state.user,
-  events: state.events.list,
-  loadStatus: state.events.loadStatus
+  events: state.events
+  //loadStatus: state.events.loadStatus
 })
 
-const mapDispatchToProps = {
-  addEvent, 
-  fetchEvents, 
+const mapDispatchToProps = { 
   loginUser, 
-  authorizeUser
+  authorizeUser,
+  fetchUserEvents, 
+  addEvent
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventContainer)

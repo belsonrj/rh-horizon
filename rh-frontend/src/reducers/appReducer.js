@@ -24,3 +24,4 @@ export default function appReducer(state = {users: []}, action) {
       return state
   }
 }
+

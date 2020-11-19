@@ -1,16 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-//import EventThumbnail from './EventThumbnail'
+import EventThumbnail from './EventThumbnail'
 import addIcon from '../../assets/add-icon.png'
 
-const Events = (props) => (
-  <>
+class Events extends React.Component {
+  
+  render() {
+    return (
+    <div>
     <div className="row justify-content-center py-4">
-    <h3>{props.user.valid ? `${props.user.current.username}'s Events` : "Your Events"}</h3>
+    
     </div>
     <div className="row justify-content-center">
       <Link className="mx-4" to={{
-        pathname: `${props.match.path}/new`,
+        pathname: `/events/new`,
         context: "events"
       }}>
         <h5>
@@ -19,18 +22,15 @@ const Events = (props) => (
         </h5>
       </Link>
     </div>
-    <div className="row justify-content-center">
-      {props.events.map(evnt => 
-        <Link key={evnt.id} to={`/events/${evnt.id}`}>
-          <div className="card mx-2">
-            <div className="card-header">
-              <h6 className="primary-text">{evnt.name}</h6>
-            </div>
-          </div>
-        </Link>
-      )}
-    </div>
-  </>
-)
-
+    <div className="card-columns">
+        {this.props.events.events.map(evnt => <EventThumbnail 
+          key={evnt.id} 
+          event={evnt}
+          />
+        )}
+      </div>
+      </div>
+    )
+  }
+}
 export default Events

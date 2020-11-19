@@ -1,14 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addVenue} from '../actions/addVenue';
+import {addVenue} from '../../actions/addVenue';
 
 class VenueForm extends React.Component {
 
     state = {
         name: '',
-        genre: '',
-        times_seen: '',
-        met: ''
+        address: '',
+        venue_type: '',
+        times_visited: '',
+        prices: '',
+        sound: '',
+        layout: ''
     }
 
     handleChange = (event) => {
@@ -22,9 +25,12 @@ class VenueForm extends React.Component {
         this.props.addArtist(this.state, this.props.user.id)
         this.setState({
             name: '',
-            genre: '',
-            times_seen: '',
-            met: ''
+            address: '',
+            venue_type: '',
+            times_visited: '',
+            prices: '',
+            sound: '',
+            layout: ''
         })
     }
 
@@ -32,19 +38,49 @@ class VenueForm extends React.Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <label>Artist Name:</label><br/>
+                    <label>Venue Name:</label><br/>
                     <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
-                    <label>Genre:</label><br/>
-                    <select name="genre" value={this.state.genre} onChange={this.handleChange}>
+                    <label>Address:</label><br/>
+                    <input type="text" name="address" value={this.state.address} onChange={this.handleChange}/><br/>
+                    <label>Venue Type:</label><br/>
+                    <select name="venue_type" value={this.state.venue_type} onChange={this.handleChange}>
                         <option value=''></option>
-                        <option>Rock</option>
-                        <option>Indie</option>
+                        <option>Bar</option>
+                        <option>Small</option>
+                        <option>Medium</option>
+                        <option>Large</option>
+                        <option>Theatre</option>
+                        <option>Pavillion</option>
+                        <option>Outdoor</option>
                     </select><br/>
-                    <label>Times Seen:</label><br/>
-                    <input type="integer" name="times_seen" value={this.state.times_seen} onChange={this.handleChange}/><br/>
-                    <label>Met:</label><br/>
-                    <input type="checkbox" name="met" checked={this.state.checked} onChange={this.handleChange.bind(this)}/><br/>
-                    <input type="submit"/>
+                    <label>Prices:</label><br/>
+                    <select name="prices" value={this.state.prices} onChange={this.handleChange}>
+                        <option value=''></option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select><br/>
+                    <label>Sound:</label><br/>
+                    <select name="sound" value={this.state.sound} onChange={this.handleChange}>
+                        <option value=''></option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select><br/>
+                    <label>Layout:</label><br/>
+                    <select name="layout" value={this.state.layout} onChange={this.handleChange}>
+                        <option value=''></option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select><br/>
+                    
                 </form>
             </div>
         )

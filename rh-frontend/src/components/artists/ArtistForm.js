@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addArtist} from '../actions/addArtist';
+import {addArtist} from '../../actions/addArtist';
 
 class ArtistForm extends React.Component {
 
@@ -40,11 +40,10 @@ class ArtistForm extends React.Component {
                         <option>Rock</option>
                         <option>Indie</option>
                     </select><br/>
-                    <label>Times Seen:</label><br/>
-                    <input type="integer" name="times_seen" value={this.state.times_seen} onChange={this.handleChange}/><br/>
+
                     <label>Met:</label><br/>
                     <input type="checkbox" name="met" checked={this.state.checked} onChange={this.handleChange.bind(this)}/><br/>
-                    <input type="submit"/>
+                    
                 </form>
             </div>
         )

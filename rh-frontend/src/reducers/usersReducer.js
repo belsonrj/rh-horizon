@@ -26,8 +26,9 @@ function usersReducer(state = { current: {}, valid: true, authCompleted: false, 
           authCompleted: true,
           errors: {...state.errors}
         }
-      default:
-        return state
+
+        default:
+          return state
     }
   }
   

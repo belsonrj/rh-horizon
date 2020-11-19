@@ -15,13 +15,13 @@ const NavBar = () => {
               <NavLink className="secondary-text" to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="secondary-text" to="/events">My Events</NavLink>
+              <NavLink className="secondary-text" to={`/events`}>My Events</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="secondary-text" to="/artists">Artists</NavLink>
+              <NavLink className="secondary-text" to={`/artists`}>Artists</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="secondary-text" to="/venues">Venues</NavLink>
+              <NavLink className="secondary-text" to={`/venues`}>Venues</NavLink>
             </li>
           </ul>
         </div>
