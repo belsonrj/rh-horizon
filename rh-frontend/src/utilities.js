@@ -4,13 +4,13 @@ function handleInputChange(e){
   })
 }
 
-function handleSubmit(submitObj,){
+function handleSubmit(submitObj){
+  //debugger;
   submitObj.e.preventDefault()
   submitObj.callback(submitObj.currentState)
   this.setState({
     ...submitObj.clearState,
     submitted: true
-  
   })
 }
   

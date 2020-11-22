@@ -1,15 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addArtist} from '../../actions/addArtist';
+import {addArtist} from '../../actions/artistActions';
 
 class ArtistForm extends React.Component {
-
-    state = {
+    static cleanState = {
         name: '',
         genre: '',
         times_seen: '',
-        met: ''
-    }
+        met: '',
+        submitted: false
+      }
+    
+      state = {
+        ...this.constructor.cleanState
+      }
 
     handleChange = (event) => {
         this.setState({
@@ -31,7 +35,7 @@ class ArtistForm extends React.Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                
                     <label>Artist Name:</label><br/>
                     <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
                     <label>Genre:</label><br/>
@@ -44,7 +48,7 @@ class ArtistForm extends React.Component {
                     <label>Met:</label><br/>
                     <input type="checkbox" name="met" checked={this.state.checked} onChange={this.handleChange.bind(this)}/><br/>
                     
-                </form>
+               
             </div>
         )
     }

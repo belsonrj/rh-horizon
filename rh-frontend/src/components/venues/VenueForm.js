@@ -1,18 +1,23 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {addVenue} from '../../actions/addVenue';
+import {addVenue} from '../../actions/venueActions';
 
 class VenueForm extends React.Component {
-
-    state = {
+    static cleanState = {
         name: '',
         address: '',
         venue_type: '',
         times_visited: '',
         prices: '',
         sound: '',
-        layout: ''
-    }
+        layout: '',
+        submitted: false
+      }
+    
+      state = {
+        ...this.constructor.cleanState
+      }
+
 
     handleChange = (event) => {
         this.setState({
@@ -37,7 +42,7 @@ class VenueForm extends React.Component {
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                
                     <label>Venue Name:</label><br/>
                     <input type="text" name="name" value={this.state.name} onChange={this.handleChange}/><br/>
                     <label>Address:</label><br/>
@@ -81,7 +86,7 @@ class VenueForm extends React.Component {
                         <option>5</option>
                     </select><br/>
                     
-                </form>
+                
             </div>
         )
     }

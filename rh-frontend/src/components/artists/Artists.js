@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {deleteArtist} from '../../actions/deleteArtist';
+import {deleteArtist} from '../../actions/artistActions';
 //import Artist from '../components/Artist';
 
 const Artists = (props) => {

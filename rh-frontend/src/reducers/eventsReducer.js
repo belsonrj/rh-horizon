@@ -1,17 +1,41 @@
-export default function eventsReducer(state = {users: [], events: []}, action) {
+export default function eventsReducer(state = {users: [], events: [], loadStatus: null, eventAdded: null}, action) {
   switch (action.type) {
     case 'FETCH_EVENTS':
       return {events: action.payload}
 
-    case 'ADD_EVENTS':
-      let users = state.users.map(user => {
-        if (users.current.id === action.payload.id) {
+      case "START_ADD":
+        const tempEvent = { 
+          ...action.tempEvent,
+          events: [],
+          temp: true }
+        return {
+          events: [...state.events, tempEvent],
+          loadStatus: state.loadStatus,
+          EventAdded: null
+        }
+
+    case 'ADD_EVENT':
+      let user_event = state.users.map(user => {
+        if (user_event.current.id === action.payload.id) {
           return action.payload
         } else {
           return user
         }
       })
-      return {...state, users: users}
+      return {...state, users: user_event}
+    case "LOAD_EVENTS":
+        return {
+          events: [...state.events],
+          loadStatus: "pending",
+          eventAdded: state.eventAdded
+        }
+    case "FETCH_USER_EVENTS":
+        return {
+          events: [...action.events],
+          loadStatus: "complete",
+          eventAdded: state.eventAdded
+        }
+
     case 'DELETE_TRANSACTION':
       let usersTwo = state.users.map(user => {
         if (user.current.id === action.payload.id) {

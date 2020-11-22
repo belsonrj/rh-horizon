@@ -20,6 +20,7 @@ export function fetchEvents() {
 }
 
 export const fetchUserEvents = user => {
+  debugger;
   const configObj = {
     method: 'GET',
     headers: {
@@ -30,12 +31,13 @@ export const fetchUserEvents = user => {
     credentials: 'include'
   }
   return (dispatch) => {
+    dispatch({type: 'LOAD_EVENTS'})
     fetch(`http://localhost:3001/api/v1/users/${user.id}/events`, configObj)
       .then(resp => resp.json())
       .then(events => {
         dispatch({
           type: 'FETCH_USER_EVENTS',
-          paylod: events
+          payload: events
         })
       })
       .catch(() => console.log("Can't access response. Please try again later"))
@@ -43,27 +45,26 @@ export const fetchUserEvents = user => {
 }
 
 export const addEvent = (evnt, userId) => {
-
-  return (dispatch) => {
-    fetch(`http://localhost:3000/api/v1/accounts/${userId}/events`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: token()
-      },
-      credentials: 'include',
-      body: JSON.stringify(evnt)
+  const configObj = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: token()
+    },
+    credentials: 'include',
+    body: JSON.stringify({
+      name: evnt.name,
+      date: evnt.date,
+      url: evnt.url
     })
-    .then(response => response.json())
-    .then(user => {
-        if (user.error) {
-          alert(user.error)
-        } else {
-          dispatch({type: 'ADD_EVENT', payload: user})
-        }
-      }
-    )
+  }
+  return dispatch => {
+    dispatch({type: "START_ADD", userId, evnt})
+    fetch(`http://localhost:3001/api/v1/users/${userId}/events`, configObj)
+      .then(resp => resp.json())
+      .then(() => {
+        dispatch({ type: "ADD_EVENT", evnt, userId})
+    })
   }
 }
-
