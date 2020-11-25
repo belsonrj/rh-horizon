@@ -5,6 +5,7 @@ import addIcon from '../../assets/add-icon.png'
 
 class Events extends React.Component {
   
+  
   render() {
     return (
     <div>
@@ -26,10 +27,12 @@ class Events extends React.Component {
         {this.props.events.events.map(evnt => <EventThumbnail 
           key={evnt.id} 
           event={evnt}
+          user={this.props.user}
+          handleDelete={this.props.handleDelete}
           />
         )}
-      </div>
-      </div>
+    </div>
+    </div>
     )
   }
 }

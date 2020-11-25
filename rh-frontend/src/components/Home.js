@@ -5,6 +5,15 @@ import EventAll from '../components/events/EventAll'
 
 class Home extends React.Component {
 
+  state = {
+    events: [this.props.events],
+    user: [this.props.user]
+  }
+
+  componentDidMount(){
+    this.props.fetchEvents()   
+ }
+
   render() {
     let events = this.props.events
   return(
@@ -21,10 +30,14 @@ class Home extends React.Component {
 }
 }
 
+function mapDispatchToProps(dispatch){
+  return { fetchEvents: () => dispatch(fetchEvents()) }
+}
+
 const mapStateToProps = state => {
   return {
     events: state.events
   }
 }
 
-export default connect(mapStateToProps, {fetchEvents})(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

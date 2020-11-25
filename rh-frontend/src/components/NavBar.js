@@ -20,9 +20,6 @@ const NavBar = () => {
             <li className="nav-item">
               <NavLink className="secondary-text" to={`/artists`}>Artists</NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="secondary-text" to={`/venues`}>Venues</NavLink>
-            </li>
           </ul>
         </div>
         <div>

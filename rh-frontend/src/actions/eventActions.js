@@ -1,26 +1,9 @@
 import * as Cookies from "js-cookie"
+//import { browserHistory } from 'react-router';
 
 const token = () => Cookies.get("eventSession")
 
 export function fetchEvents() {
-  return (dispatch) => {
-    fetch('http://localhost:3001/api/v1/events', {
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }
-  
-      })
-      .then(resp => resp.json())
-      .then(events => dispatch({
-        type: 'FETCH_EVENTS',
-        payload: events
-    }))   
-  }
-}
-
-export const fetchUserEvents = user => {
-  debugger;
   const configObj = {
     method: 'GET',
     headers: {
@@ -32,7 +15,31 @@ export const fetchUserEvents = user => {
   }
   return (dispatch) => {
     dispatch({type: 'LOAD_EVENTS'})
-    fetch(`http://localhost:3001/api/v1/users/${user.id}/events`, configObj)
+    fetch(`http://localhost:3001/api/v1/events`, configObj)
+      .then(resp => resp.json())
+      .then(events => {
+        dispatch({
+          type: 'FETCH_EVENTS',
+          payload: events
+        })
+      })
+      .catch(() => console.log("Can't access response. Please try again later"))
+  }
+}
+
+export const fetchUserEvents = (userId) => {
+  const configObj = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: token()
+    },
+    credentials: 'include'
+  }
+  return (dispatch) => {
+    dispatch({type: 'LOAD_EVENTS'})
+    fetch(`http://localhost:3001/api/v1/users/${userId}/events`, configObj)
       .then(resp => resp.json())
       .then(events => {
         dispatch({
@@ -55,8 +62,11 @@ export const addEvent = (evnt, userId) => {
     credentials: 'include',
     body: JSON.stringify({
       name: evnt.name,
+      venue: evnt.venue,
       date: evnt.date,
-      url: evnt.url
+      url: evnt.url,
+      comments: evnt.comments,
+      user_id: evnt.user_id
     })
   }
   return dispatch => {
@@ -66,5 +76,15 @@ export const addEvent = (evnt, userId) => {
       .then(() => {
         dispatch({ type: "ADD_EVENT", evnt, userId})
     })
+  }
+}
+
+export const deleteEvent = (eventId, userId) => {
+  return async (dispatch) => {
+    const response = await fetch(`http://localhost:3001/api/v1/users/${userId}/events/${eventId}`, {
+      method: 'DELETE'
+    })
+    const user = await response.json()
+    return dispatch({ type: 'DELETE_TRANSACTION', payload: user })
   }
 }

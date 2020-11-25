@@ -36,7 +36,7 @@ export default function eventsReducer(state = {users: [], events: [], loadStatus
           eventAdded: state.eventAdded
         }
 
-    case 'DELETE_TRANSACTION':
+    case 'DELETE_EVENT':
       let usersTwo = state.users.map(user => {
         if (user.current.id === action.payload.id) {
           return action.payload
