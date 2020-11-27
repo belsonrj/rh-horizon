@@ -1,26 +1,59 @@
+import * as Cookies from "js-cookie"
+//import { browserHistory } from 'react-router';
 
-function addArtist(artist){
+const token = () => Cookies.get("eventSession")
+
+function addArtist(artist, eventId, userId){
   const configObj = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json'
     },
-    body: JSON.stringify(artist)
+    body: JSON.stringify({
+      name: artist.name,
+      genre: artist.genre,
+      event_id: artist.event_id,
+      user_id: artist.user_id
+    })
   }
 
   return dispatch => {
     dispatch({type: "ADD_ARTIST", artist})
-    fetch(`http://localhost:3001/users/${artist.eventId}/comments`, configObj)
+    fetch(`http://localhost:3001/api/v1/users/${userId}/events/${eventId}/artists`, configObj)
   }
 }
 
-function fetchArtists(eventId){
-  return dispatch => {
-    dispatch({ type: "LOAD_ARTISTS", eventId })
-    fetch(`http://localhost:3001/users/${eventId}/artists`)
+//function fetchArtists(userId){
+//  return dispatch => {
+//    dispatch({ type: "LOAD_ARTISTS", userId })
+//    fetch(`http://localhost:3001/users/${userId}/artists`)
+//      .then(resp => resp.json())
+//      .then(artists => dispatch({ type: "ADD_ARTISTS", artists }))
+//  }
+//}
+
+export const fetchArtists = (userId) => {
+  const configObj = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: token()
+    },
+    credentials: 'include'
+  }
+  return (dispatch) => {
+    dispatch({type: 'LOAD_ARTISTS'})
+    fetch(`http://localhost:3001/api/v1/users/${userId}/artists`, configObj)
       .then(resp => resp.json())
-      .then(artists => dispatch({ type: "ADD_COMMENTS", artists }))
+      .then(artists => {
+        dispatch({
+          type: 'FETCH_ARTISTS',
+          artists
+        })
+      })
+      .catch(() => console.log("Can't access response. Please try again later"))
   }
 }
 
@@ -52,4 +85,4 @@ return (dispatch) => {
 }
 }
 
-export { addArtist, fetchArtists }
+export { addArtist }

@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import ArtistEdit from '../ArtistEdit'
+import {editArtist} from '../../actions/artistActions'
 
 
 const Artist = (props) => {
-
-let artist = props.users.filter(artist => artist.id == props.match.params.id)[0]
+console.log(props)
+let artist = props.artists.filter(artist => artist.id == props.match.params.id)[0]
 
 const handleEdit = (artist) => {
     props.editArtist(artist.id, artist.user_id)
@@ -17,13 +17,12 @@ const handleEdit = (artist) => {
             {artist ? artist.name : null}
         </h1>
         <div>
-            Genre: {artist.genre}<br/>
-            Seen {artist.times_seen} times<br/>
-            Met? {artist.met}<br/>
+            Genre: {artist ? artist.genre : null}<br/>
+            Seen: {artist ? artist.times_seen : null} times<br/>
         </div>
         <button onClick={() => handleEdit(artist)}>Edit</button>
       </div>
     )
 }
 //{user ? null : <Redirect to='/accounts'/>}
-export default connect(null, {ArtistEdit})(Artist)
+export default connect(null, {editArtist})(Artist)

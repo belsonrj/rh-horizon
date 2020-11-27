@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const EventThumbnail = props => {
 
 
-  
+  console.log(props)
   return (
     <div className="card">
       <div className="card-header">
@@ -18,8 +18,8 @@ const EventThumbnail = props => {
       </div>
       <div className="card-body">
         <h6 className="card-title">{props.event.date}</h6>
-        <Link className="btn btn-primary tertiary-background" to={`/events/${props.event.id}`} event={props.event}>See More</Link>
-        <button onClick={() => props.handleDelete(props.event)}>Delete</button>
+        <Link className="btn btn-primary tertiary-background" to={`/events/${props.event.id}`} >See More</Link>
+  <button onClick={() => props.handleDelete(props.event)}>Delete</button>
       </div>
     </div>
   )

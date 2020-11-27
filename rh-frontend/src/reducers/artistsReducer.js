@@ -17,7 +17,7 @@ function artistsReducer(state = { list: [], loadStatus: null, resourceLoaded: nu
         loadStatus: "pending",
         resourceLoaded: action.eventId
       }
-    case "ADD_ARTISTS":
+    case "FETCH_ARTISTS":
       return {
         list: [...action.artists],
         loadStatus: "complete",

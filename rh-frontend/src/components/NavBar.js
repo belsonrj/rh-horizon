@@ -18,7 +18,7 @@ const NavBar = () => {
               <NavLink className="secondary-text" to={`/events`}>My Events</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="secondary-text" to={`/artists`}>Artists</NavLink>
+              <NavLink className="secondary-text" to={`/artists`}>My Artists</NavLink>
             </li>
           </ul>
         </div>

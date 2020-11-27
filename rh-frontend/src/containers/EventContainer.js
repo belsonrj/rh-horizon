@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+//import { bindActionCreators } from 'redux'
 import { Route, Switch } from 'react-router-dom'
 import {addEvent, deleteEvent, fetchUserEvents} from '../actions/eventActions'
 import { authorizeUser, loginUser } from '../actions/userActions'
@@ -11,50 +12,62 @@ import Event from '../components/events/Event'
 import ModalWrapper from '../components/ModalWrapper'
 //import NavBar from '../components/NavBar'
 
-class EventContainer extends React.Component {
+class EventContainer extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  state = {
-    loading: true,
-    events: [],
+  this.state = {
+    //loading: true,
+    //events: [],
     user: [this.props.user]
-  }
+  };
+}
   
   componentDidMount(){
     if (!this.props.loadStatus){
     }
     this.props.authorizeUser()
-    this.props.fetchUserEvents(this.props.user.current.id)
-    this.setState({ loading: false });
+    this.setState({
+      events: this.props.fetchUserEvents(this.props.user.current.id),
+      //loading: false
+    })
   }
 
   componentDidUpdate(prevProps){
-    if (prevProps.user.valid !== this.props.user.valid){
-      this.props.fetchUserEvents(this.props.user.current.id)
+    if (prevProps.user.current.valid !== this.state.user.valid){
+      this.setState({
+        events: this.props.fetchUserEvents(this.props.user.current.id)
+      })
     }
   }
 
+
   handleDelete = (evnt) => {
     this.props.deleteEvent(evnt.id, evnt.user.id)
-    const currentEvents = this.state.events;
-    this.setState({
+    const currentEvents = this.props.events;
+    this.forceUpdate({
       events: currentEvents.filter(event => event.id !== evnt.id),
     });
-    
+    return this.newState
   }
 
-//  findEvent = id => {
-//    return this.props.user.events.find(event => event.id === parseInt(id,10))
+//  filterEvents = props => {
+//    return props.event.event.filter(evnt => evnt.id === props.match.params.id)[0]
 //  }
 
-  render(){
-    if (this.state.loading) {
-      return "Please Wait";
+ findEvent = (id) => {
+    this.props.events.find(evnt => evnt.id === parseInt(id, 10))
   }
-    let events = this.props.events
+
+  render(){
+    //if (this.state.events.events.loadStatus === "pending") {
+    //} else {
+      console.log(this.props)
       return (
+        
           <div>          
             <Switch>
-              <Route exact path={`${this.props.match.path}/new`}>
+              <Route path={`${this.props.match.path}/new`}>
               <>
                 <ModalWrapper title="Add Event" id="add-resource-form" previousUrl={this.props.match.url}>
                   <EventForm 
@@ -64,36 +77,53 @@ class EventContainer extends React.Component {
                 </ModalWrapper>
                 </>
               </Route> 
-              <Route path='/artists/new' render={(routerProps) => <ArtistForm {...routerProps} user={this.props.user.current}/>}/>      
-              <Route path={`${this.props.match.path}/:id`} render={props =>
-                <Event
-                  {...props} 
-                  event={this.props.events.events} 
-                  loadStatus={this.props.loadStatus}
-             />
-             }/>
+              <Route path='/artists/new' >
+                <>
+                <ModalWrapper title="Add Artist" id="add-resource-form" previousUrl={this.props.match.url}>   
+                  <ArtistForm 
+                    user={this.props.user.current}
+                    event={this.props.events} 
+                    filterEvent={this.filterEvent}/>
+                </ModalWrapper> 
+                </>
+              </Route>
+              
+              <Route path={`${this.props.match.path}/:id`} render={props => 
+                <>
+                <ModalWrapper title="Show Event" id="add-resource-form" previousUrl={this.props.match.url}>
+                  <Event 
+                    {...props}
+                    event={this.findEvent(this.props.match.params.id)}
+                    user={this.props.user.current} 
+                    events={this.props.events} 
+                  />
+                </ModalWrapper> 
+                </>
+              }/>
+              
             </Switch>
             <h3>{`${this.props.user.current.username}'s Events:`}</h3> 
-            <Events events={events} user={this.props.user} handleDelete={this.handleDelete}/>
-            
+            <Events events={this.props.events} user={this.props.user} handleDelete={this.handleDelete}/>
          </div>
       )
   }
 }
 
 
-const mapStateToProps = state => ({
-  user: state.user,
-  events: state.events,
-  loadStatus: state.events.loadStatus
-})
+const mapDispatchToProps = {
+    loginUser,
+    authorizeUser,
+    fetchUserEvents,
+    addEvent,
+    deleteEvent
+  }
 
-const mapDispatchToProps = { 
-  loginUser, 
-  authorizeUser,
-  fetchUserEvents, 
-  addEvent,
-  deleteEvent
+
+function mapStateToProps (state) {
+    return {
+      events: state.events.events,
+      user: state.user,
+      loadStatus: state.events.loadStatus
 }
-
+}
 export default connect(mapStateToProps, mapDispatchToProps)(EventContainer)

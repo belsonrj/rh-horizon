@@ -20,6 +20,8 @@ class Home extends React.Component {
     <div>
     <div>
       <h1>Welcome to Event Mapper!</h1>
+      <p>Login to view your collection of events and artists</p>
+      <p>or create an account to start building your collection!</p>
       <h2>Recent events added by users:</h2>
     </div>
     <div>

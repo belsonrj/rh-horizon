@@ -8,16 +8,16 @@ import {addEvent} from '../../actions/eventActions'
 
 class EventForm extends React.Component{
 
-  constructor(props) {
-    super(props);
-    this.state = { 
-      redirect: false
-    };
+//  constructor(props) {
+//    super(props);
+//    this.state = { 
+      //redirect: false
+//    };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+//    this.handleSubmit = this.handleSubmit.bind(this);
+//  }
 
-  static cleanState = {
+  state = {
     name: "",
     venue: "",
     date: "",
@@ -26,9 +26,9 @@ class EventForm extends React.Component{
     submitted: false
   }
 
-  state = {
-    ...this.constructor.cleanState
-  }
+  //state = {
+  //  ...this.constructor.cleanState
+  //}
 
   handleSubmit = (event) => {
     event.preventDefault()
@@ -45,7 +45,7 @@ class EventForm extends React.Component{
 
   render(){
     if (this.state.submitted){
-      return <Redirect to='/events' props={this.props}/>
+      return <Redirect to='/events' />
     } else {
       return(
         <>

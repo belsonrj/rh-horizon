@@ -16,8 +16,7 @@ function handleSubmit(submitObj){
   
   
   function findEvent(id){
-    debugger;
-    return this.props.events.events.find(evnt => evnt.id === parseInt(id, 10))
+    return this.props.events.find(evnt => evnt.id === parseInt(id, 10))
   }
   
   export { handleInputChange, handleSubmit, findEvent }

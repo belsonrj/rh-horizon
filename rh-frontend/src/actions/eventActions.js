@@ -38,13 +38,13 @@ export const fetchUserEvents = (userId) => {
     credentials: 'include'
   }
   return (dispatch) => {
-    dispatch({type: 'LOAD_EVENTS'})
+    dispatch({type: 'LOAD_USER_EVENTS'})
     fetch(`http://localhost:3001/api/v1/users/${userId}/events`, configObj)
       .then(resp => resp.json())
       .then(events => {
         dispatch({
           type: 'FETCH_USER_EVENTS',
-          payload: events
+          events
         })
       })
       .catch(() => console.log("Can't access response. Please try again later"))
@@ -78,6 +78,8 @@ export const addEvent = (evnt, userId) => {
     })
   }
 }
+
+
 
 export const deleteEvent = (eventId, userId) => {
   return async (dispatch) => {

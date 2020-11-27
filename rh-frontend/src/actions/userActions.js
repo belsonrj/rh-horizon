@@ -10,7 +10,14 @@ function buildPostObj(user){
       Accept: 'application/json'
     },
     credentials: 'include',
-    body: JSON.stringify(user)
+    body: JSON.stringify({
+      id: user.id,
+      username: user.username,
+      password: user.password,
+      events: user.events,
+      artists: user.artists
+    })
+    
   })
 }
 

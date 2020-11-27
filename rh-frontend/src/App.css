@@ -1,14 +1,25 @@
 .primary-text {
     color: #252627;
   }
+
+.show-text {
+    color: #4141ec;
+  }
+
+  .show-card{
+    border: groove;
+    width: 30rem;
+    border-width: 15px;
+    background-color: #b0e1ee!important;
+  }
   
   .secondary-background {
-    background-color: #63A46C!important;
+    background-color: #66628c!important;
   }
   
   .tertiary-background {
-    background-color: #4B88A2!important;
-    border-color:  #4B88A2!important;
+    background-color: #5f5b73!important;
+    border-color:  #777495!important;
   }
   
   .quartinary-background {
@@ -21,6 +32,12 @@
   
   .card-img{
     width: 8rem;
+  }
+
+  .card{
+    border: outset;
+    width: 15rem;
+    border-width: 5px;
   }
   
   .icon {
