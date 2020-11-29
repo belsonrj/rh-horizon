@@ -12,13 +12,11 @@ const Event = (props) => {
     return(
       <div className="show-card">
         <div className="float-right">
-        <h2>Who?</h2><br/>
+          <h2>Who?</h2><br/>
             {evnt.artists.map(art =>  
-            <div key={art.id}>
-              <h6>Artist Name:</h6>  
-              <h3 className="show-text">{art.name}</h3>
-              <h6>Genre:</h6>
-              <h3 className="show-text">{art.genre}</h3>
+            <div  key={art.id}>  
+              <li className="show-text">{art.name} - {art.genre}</li>
+              ---------------------------
             </div> )}
         </div>
         <h2>What?</h2>
@@ -30,7 +28,6 @@ const Event = (props) => {
       
         <p className="show-text">Created by: { evnt.user.username }</p>
       <div>
-        <h6>Add Artist to Event</h6>
       <div className="row justify-content-center">
       <Link className="mx-4" 
       to={{

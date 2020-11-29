@@ -29,8 +29,7 @@ class App extends React.Component {
           <Route path="/login" render={props => <UserContainer {...props} previousUrl={props.location.previousUrl}/>} />
           <Route path="/signup" render={props => <UserContainer {...props} />} />
           <Route path='/events/:id/artists/new' render={routerProps => <ArtistForm {...routerProps} user={this.props.user.current} />} />
-          <Route path='/events' render={routerProps => <EventContainer {...routerProps} user={this.props.user} events={this.props.events}/>} />
-          
+          <Route path='/events' render={routerProps => <EventContainer {...routerProps} user={this.props.user} />} />      
           <Route path='/artists' render={routerProps => <ArtistsContainer {...routerProps} user={this.props.user} artists={this.props.artists}/>} />
           
           </Switch>

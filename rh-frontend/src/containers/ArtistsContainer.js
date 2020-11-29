@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { authorizeUser, loginUser } from '../actions/userActions'
 import { fetchArtists } from '../actions/artistActions'
-//import ArtistForm from '../components/artists/ArtistForm'
 import Artists from '../components/artists/Artists'
 import Artist from '../components/artists/Artist'
 import ModalWrapper from '../components/ModalWrapper'
@@ -15,7 +14,8 @@ class ArtistContainer extends React.Component{
     super(props);
 
   this.state = {
-    user: [this.props.user]
+    user: [this.props.user],
+    events: [this.props.events]
   };
 }
   componentDidMount(){
@@ -40,7 +40,6 @@ class ArtistContainer extends React.Component{
   }
 
   render(){
-      console.log(this.props)
           if (this.props.user.valid){
             return (
               <div>
@@ -79,6 +78,7 @@ const mapDispatchToProps = {
 const mapStateToProps = state => ({
   user: state.user,
   artists: state.artists.list,
+  events: state.events.events,
   loadStatus: state.artists.loadStatus,
 })
 

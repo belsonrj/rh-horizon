@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-//import { bindActionCreators } from 'redux'
 import { Route, Switch } from 'react-router-dom'
 import {addEvent, deleteEvent, fetchUserEvents} from '../actions/eventActions'
 import { authorizeUser, loginUser } from '../actions/userActions'
@@ -10,15 +9,13 @@ import ArtistForm from '../components/artists/ArtistForm'
 import Events from '../components/events/Events'
 import Event from '../components/events/Event'
 import ModalWrapper from '../components/ModalWrapper'
-//import NavBar from '../components/NavBar'
 
 class EventContainer extends React.PureComponent {
   constructor(props) {
     super(props);
 
   this.state = {
-    //loading: true,
-    //events: [],
+    events: null,
     user: [this.props.user]
   };
 }
@@ -28,8 +25,7 @@ class EventContainer extends React.PureComponent {
     }
     this.props.authorizeUser()
     this.setState({
-      events: this.props.fetchUserEvents(this.props.user.current.id),
-      //loading: false
+      events: this.props.fetchUserEvents(this.props.user.current.id)
     })
   }
 
@@ -44,15 +40,14 @@ class EventContainer extends React.PureComponent {
 
   handleDelete = (evnt) => {
     this.props.deleteEvent(evnt.id, evnt.user.id)
-    const currentEvents = this.props.events;
-    this.forceUpdate({
-      events: currentEvents.filter(event => event.id !== evnt.id),
-    });
-    return this.newState
+//    this.filterState(evnt.id)
   }
 
-//  filterEvents = props => {
-//    return props.event.event.filter(evnt => evnt.id === props.match.params.id)[0]
+//  filterState = evnt => {
+//    const currentEvents = this.props.events;
+//    this.setState({ state: this.state });
+//   currentEvents.filter(event => event.id !== evnt.id) 
+//    return this.setState(currentEvents)
 //  }
 
  findEvent = (id) => {
@@ -60,9 +55,10 @@ class EventContainer extends React.PureComponent {
   }
 
   render(){
-    //if (this.state.events.events.loadStatus === "pending") {
-    //} else {
-      console.log(this.props)
+    if (this.props.loadStatus === "pending") {
+      return "loading"
+    } else {
+      console.log(this.state)
       return (
         
           <div>          
@@ -108,7 +104,7 @@ class EventContainer extends React.PureComponent {
       )
   }
 }
-
+}
 
 const mapDispatchToProps = {
     loginUser,

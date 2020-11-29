@@ -52,6 +52,7 @@ export const fetchUserEvents = (userId) => {
 }
 
 export const addEvent = (evnt, userId) => {
+  debugger;
   const configObj = {
     method: 'POST',
     headers: {
@@ -82,11 +83,11 @@ export const addEvent = (evnt, userId) => {
 
 
 export const deleteEvent = (eventId, userId) => {
-  return async (dispatch) => {
-    const response = await fetch(`http://localhost:3001/api/v1/users/${userId}/events/${eventId}`, {
+  return (dispatch) => {
+     return fetch(`http://localhost:3001/api/v1/users/${userId}/events/${eventId}`, {
       method: 'DELETE'
     })
-    const user = await response.json()
-    return dispatch({ type: 'DELETE_TRANSACTION', payload: user })
+    .then(response => response.json())
+    .then(evnt => dispatch({type: 'DELETE_EVENT', payload: evnt, eventId}))
   }
 }

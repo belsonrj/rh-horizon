@@ -13,6 +13,7 @@ function addArtist(artist, eventId, userId){
     body: JSON.stringify({
       name: artist.name,
       genre: artist.genre,
+      times_seen: artist.times_seen,
       event_id: artist.event_id,
       user_id: artist.user_id
     })

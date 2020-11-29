@@ -8,6 +8,7 @@ class ArtistForm extends React.Component{
   state = {
     name: '',
     genre: '',
+    times_seen: '0',
     submitted: false
   }
 
@@ -17,8 +18,9 @@ class ArtistForm extends React.Component{
     const eventId = this.props.match.params.id
     this.props.addArtist(this.state, eventId, this.props.user.id)
     this.setState({
-      name: "",
-      genre: "",
+      name: '',
+      genre: '',
+      times_seen: '0',
       selectId: null,
       submitted: true
     })
@@ -55,6 +57,7 @@ class ArtistForm extends React.Component{
                         <option>Country</option>
                         <option>Pop</option>
                     </select><br/>
+                    <input type="hidden" name="times_seen" value={this.state.times_seen}/>
                 </div>
                     <input data-testid="add-playlist-submit" className="btn btn-primary tertiary-background" type="submit" value="Add Artist"/>
              </form>

@@ -4,11 +4,17 @@ import { Link } from 'react-router-dom'
 import addIcon from '../../assets/add-icon.png'
 
 class Events extends React.Component {
+  constructor(props) {
+    super(props);
+
+  this.state = {
+    events: [this.props.events],
+    user: [this.props.user]
+  };
+}
   
   render() {
     console.log(this.props)
-    //debugger;
-    
     return (
     <div>
     <div className="row justify-content-center py-4">

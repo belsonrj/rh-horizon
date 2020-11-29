@@ -1,10 +1,8 @@
 import React from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { handleInputChange } from '../../utilities'
 import {connect} from 'react-redux'
 import {addEvent} from '../../actions/eventActions'
-//import ArtistForm from '../artists/ArtistForm'
-//import addIcon from '../../assets/add-icon.png'
 
 class EventForm extends React.Component{
 
@@ -44,8 +42,8 @@ class EventForm extends React.Component{
   }
 
   render(){
-    if (this.state.submitted){
-      return <Redirect to='/events' />
+    if (this.state.submitted === true){
+      return <Redirect to='/events'/>
     } else {
       return(
         <>
