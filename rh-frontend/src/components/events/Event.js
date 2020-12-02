@@ -1,14 +1,16 @@
 import React from 'react'
+import {connect} from 'react-redux';
 import { Link } from 'react-router-dom'
-//import ArtistForm from '../../components/artists/ArtistForm'
+import {editEvent} from '../../actions/eventActions'
+//import EventEdit from '../../components/events/EventEdit'
 import addIcon from '../../assets/add-icon.png'
 
 const Event = (props) => {
   
 
   console.log(props)
-  let evnt = props.events.filter(artist => artist.id == props.match.params.id)[0]
-  //debugger;
+  let evnt = props.events.filter(event => event.id == props.match.params.id)[0]
+  
     return(
       <div className="show-card">
         <div className="float-right">
@@ -25,8 +27,8 @@ const Event = (props) => {
         <h3 className="show-text">{ evnt.date }</h3>
         <h2>Where?</h2>
         <h3 className="show-text">{ evnt.venue }</h3>
-      
-        <p className="show-text">Created by: { evnt.user.username }</p>
+        <h6>Comments:</h6>
+        <p className="show-text">{ evnt.comments }</p>
       <div>
       <div className="row justify-content-center">
       <Link className="mx-4" 
@@ -46,4 +48,4 @@ const Event = (props) => {
   }
 
 
-export default Event
+  export default connect(null, {editEvent})(Event)

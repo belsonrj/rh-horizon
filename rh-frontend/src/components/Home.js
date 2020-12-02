@@ -7,39 +7,29 @@ class Home extends React.Component {
 
   state = {
     events: [this.props.events],
-    user: [this.props.user]
+    artists: [this.props.events]
   }
 
-  componentDidMount(){
-    this.props.fetchEvents()   
- }
-
   render() {
-    let events = this.props.events
   return(
     <div>
     <div>
       <h1>Welcome to Event Mapper!</h1>
-      <p>Login to view your collection of events and artists</p>
-      <p>or create an account to start building your collection!</p>
-      <h2>Recent events added by users:</h2>
+      <p>Create events and add artists to those events to start building your collection...</p>
     </div>
     <div>
-    <EventAll events={events}/>
+    <EventAll events={this.props.events} artists={this.props.artists}/>
     </div>  
   </div>
   )
 }
 }
 
-function mapDispatchToProps(dispatch){
-  return { fetchEvents: () => dispatch(fetchEvents()) }
-}
-
 const mapStateToProps = state => {
   return {
-    events: state.events
+    events: state.events,
+    artists: state.artists
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, {fetchEvents})(Home)

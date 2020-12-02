@@ -8,18 +8,21 @@ const Artists = (props) => {
 console.log(props)
 
 const handleDelete = (artist) => {
-    props.deleteArtist(artist.id, props.user.current.id)
+    props.deleteArtist(artist.id)
 }
 
     return (
         <div>
-            Artists:
+          <h1>Your Artist Collection:</h1>
+            <ol>
             {props.artists && props.artists.map(artist => 
               <li key={artist.id}>
-                <Link to={`/artists/${artist.id}`} > {artist.name}</Link> 
-                    <button onClick={() => handleDelete(artist)}>Delete</button>
+                <Link className="link" to={`/artists/${artist.id}`} > {artist.name}</Link><br/> 
+                    <button className="button" onClick={() => handleDelete(artist)} >Delete</button>
+                    <Link to={`/artists/${artist.id}/edit`} >Edit</Link><br/>
               </li>
                 )}
+            </ol>
         </div>
         
     )

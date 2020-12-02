@@ -16,7 +16,7 @@ class ArtistForm extends React.Component{
     e.preventDefault()
     //const id = this.state.selectId ? this.state.selectId : this.props.events[0].id
     const eventId = this.props.match.params.id
-    this.props.addArtist(this.state, eventId, this.props.user.id)
+    this.props.addArtist(this.state, eventId)
     this.setState({
       name: '',
       genre: '',

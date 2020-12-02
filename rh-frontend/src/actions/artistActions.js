@@ -1,9 +1,5 @@
-import * as Cookies from "js-cookie"
-//import { browserHistory } from 'react-router';
 
-const token = () => Cookies.get("eventSession")
-
-function addArtist(artist, eventId, userId){
+function addArtist(artist, eventId){
   const configObj = {
     method: 'POST',
     headers: {
@@ -14,54 +10,31 @@ function addArtist(artist, eventId, userId){
       name: artist.name,
       genre: artist.genre,
       times_seen: artist.times_seen,
-      event_id: artist.event_id,
-      user_id: artist.user_id
+      event_id: artist.event_id
     })
   }
 
   return dispatch => {
     dispatch({type: "ADD_ARTIST", artist})
-    fetch(`http://localhost:3001/api/v1/users/${userId}/events/${eventId}/artists`, configObj)
+    fetch(`http://localhost:3001/api/v1/events/${eventId}/artists`, configObj)
   }
 }
 
-//function fetchArtists(userId){
-//  return dispatch => {
-//    dispatch({ type: "LOAD_ARTISTS", userId })
-//    fetch(`http://localhost:3001/users/${userId}/artists`)
-//      .then(resp => resp.json())
-//      .then(artists => dispatch({ type: "ADD_ARTISTS", artists }))
-//  }
-//}
-
-export const fetchArtists = (userId) => {
-  const configObj = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: token()
-    },
-    credentials: 'include'
-  }
+export function fetchArtists() {
   return (dispatch) => {
-    dispatch({type: 'LOAD_ARTISTS'})
-    fetch(`http://localhost:3001/api/v1/users/${userId}/artists`, configObj)
-      .then(resp => resp.json())
-      .then(artists => {
-        dispatch({
-          type: 'FETCH_ARTISTS',
-          artists
-        })
-      })
-      .catch(() => console.log("Can't access response. Please try again later"))
+    fetch('http://localhost:3001/api/v1/artists')
+    .then(resp => resp.json())
+    .then(art => dispatch({
+      type: 'FETCH_ARTISTS',
+      payload: art
+    }))
   }
 }
 
-export const deleteArtist = (artistId, userId) => {
+export const deleteArtist = (artistId) => {
 
   return (dispatch) => {
-      return fetch(`http://localhost:3001/api/v1/users/${userId}/artists/${artistId}`, {
+      return fetch(`http://localhost:3001/api/v1/artists/${artistId}`, {
           method: 'DELETE'
       })
       .then(response => response.json())
@@ -69,21 +42,21 @@ export const deleteArtist = (artistId, userId) => {
   }
 }
 
-export const editArtist = (artist, userId) => {
-  
-return (dispatch) => {
-    debugger;
-    fetch(`http://localhost:3001/api/v1/users/${userId}/artists/${artist.id}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(artist)
+export const editArtist = (data, artistId) => {
+  debugger;
+  return (dispatch) => {
+    fetch(`http://localhost:3001/api/v1/artists/${artistId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify(data)
     })
     .then(response => response.json())
-    .then(user => dispatch({type: 'EDIT_ARTIST', payload: user}))
+    .then(artist => dispatch({type: 'EDIT_ARTIST', payload: artist}))
+  }
 }
-}
+
 
 export { addArtist }

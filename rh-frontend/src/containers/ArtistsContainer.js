@@ -1,85 +1,65 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
-import { authorizeUser, loginUser } from '../actions/userActions'
 import { fetchArtists } from '../actions/artistActions'
 import Artists from '../components/artists/Artists'
 import Artist from '../components/artists/Artist'
+import ArtistEdit from '../components/artists/ArtistEdit'
 import ModalWrapper from '../components/ModalWrapper'
-import Home from '../components/Home'
 
 class ArtistContainer extends React.Component{
-
-  constructor(props) {
-    super(props);
-
-  this.state = {
-    user: [this.props.user],
-    events: [this.props.events]
-  };
-}
-  componentDidMount(){
-    if (!this.props.loadStatus){
-    }
-    this.props.authorizeUser()
-    this.setState({
-      artists: this.props.fetchArtists(this.props.user.current.id)
-    })
-  }
-
-  componentDidUpdate(prevProps){
-    if (prevProps.user.current.valid !== this.state.user.valid){
-      this.setState({
-        artists: this.props.fetchArtists(this.props.user.current.id)
-      })
-    }
-  }
 
   findArtist = id => {
     return this.props.artists.find(artist => artist.id === parseInt(id,10))
   }
 
+//  componentDidUpdate(prevProps) {
+//    if (prevProps.artists !== this.props.artists) {
+//      this.props.fetchArtists()
+//    }
+//  }
+
   render(){
-          if (this.props.user.valid){
+    console.log(this.props);
             return (
               <div>
                 <Switch>
-                <Route path={`${this.props.match.path}/:id`} render={props => 
+                <Route exact path={`${this.props.match.path}/:id`} render={props => 
                 <>
                 <ModalWrapper title="Show Artist" id="add-resource-form" previousUrl={this.props.match.url}>
                   <Artist 
                     {...props}
                     artist={this.findArtist(this.props.match.params.id)}
-                    user={this.props.user.current} 
+                    artists={this.props.artists} 
+                  />
+                </ModalWrapper> 
+                </>
+              }/>
+                <Route path={`${this.props.match.path}/:id/edit`} render={props => 
+                <>
+                <ModalWrapper title="Edit Artist" id="edit-artist" previousUrl={this.props.match.url}>
+                  <ArtistEdit 
+                    {...props}
+                    artist={this.findArtist(this.props.match.params.id)}
                     artists={this.props.artists} 
                   />
                 </ModalWrapper> 
                 </>
               }/>
               </Switch>
-              <Artists artists={this.props.artists} user={this.props.user} />
+              <Artists artists={this.props.artists}/>
               </div>
             )
-          } else {
-            return (
-              <>
-              <Home />
-              </>
-            )}
   }
 }
 
 const mapDispatchToProps = {
-  loginUser,
-  authorizeUser,
   fetchArtists
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
-  artists: state.artists.list,
-  events: state.events.events,
-  loadStatus: state.artists.loadStatus,
+  artists: state.artists.artists,
+  events: state.events.events
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistContainer)

@@ -1,51 +1,28 @@
-//import cuid from 'cuid'
-
-function artistsReducer(state = { list: [], loadStatus: null, resourceLoaded: null}, action){
+function artistsReducer(state = { artists: []}, action){
   switch(action.type){
-//    case "ADD_ARTIST":
-//      const newArtist = {
-//        ...action.artist,
-//        id: cuid()
-//      }
-//      return {
-//        list: [...state.list, newArtist],
-//        loadStatus: state.loadStatus
-//      }
-
-//      case "START_ART_ADD":
-//        const tempArtist = { 
-//          ...action.tempArtist,
-//          events: [],
-//          users: [],
-//          temp: true }
-//        return {
-//          events: [...state.events, tempEvent],
-//          loadStatus: state.loadStatus,
-//          EventAdded: null
-//        }
-
-      case "ADD_ARTIST":
-        const newArtist = {
-          ...action.respArtist,
-        }
-        return {
-          list: [...state.list.filter(art => !art.temp), newArtist],
-          loadStatus: state.loadStatus,
-          artistAdded: action.respArtist
-        }
-
-    case "LOAD_ARTISTS":
-      return {
-        list: [...state.list],
-        loadStatus: "pending",
-        resourceLoaded: action.eventId
+    case 'FETCH_ARTISTS':
+      return {artists: action.payload}
+    case 'ADD_ARTIST':
+        return {...state, artists: [...state.artists, action.payload]}
+    case 'EDIT_ARTIST':
+      let artistsThree = state.artists.map(art => {
+      if (art.id === action.payload.id) {
+        return action.payload
+      } else {
+        return art
       }
-    case "FETCH_ARTISTS":
-      return {
-        list: [...action.artists],
-        loadStatus: "complete",
-        eventLoaded: state.eventLoaded
-      }
+    })
+        return {...state, artists: artistsThree}
+    case "DELETE_ARTIST":
+      const removalIndex = state.artists.findIndex(art => art.id === action.payload.id);
+      return (
+        {...state,
+        artists: [
+          ...state.artists.slice(0, removalIndex),
+          ...state.artists.slice(removalIndex + 1)
+        ]
+    }
+  )
     default: 
       return state 
   }

@@ -1,93 +1,53 @@
-import * as Cookies from "js-cookie"
-//import { browserHistory } from 'react-router';
-
-const token = () => Cookies.get("eventSession")
 
 export function fetchEvents() {
-  const configObj = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: token()
-    },
-    credentials: 'include'
-  }
   return (dispatch) => {
-    dispatch({type: 'LOAD_EVENTS'})
-    fetch(`http://localhost:3001/api/v1/events`, configObj)
-      .then(resp => resp.json())
-      .then(events => {
-        dispatch({
-          type: 'FETCH_EVENTS',
-          payload: events
-        })
-      })
-      .catch(() => console.log("Can't access response. Please try again later"))
+    fetch('http://localhost:3001/api/v1/events')
+    .then(resp => resp.json())
+    .then(events => dispatch({
+      type: 'FETCH_EVENTS',
+      payload: events
+    }))
   }
 }
 
-export const fetchUserEvents = (userId) => {
-  const configObj = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: token()
-    },
-    credentials: 'include'
-  }
+export const addEvent = (data) => {
   return (dispatch) => {
-    dispatch({type: 'LOAD_USER_EVENTS'})
-    fetch(`http://localhost:3001/api/v1/users/${userId}/events`, configObj)
-      .then(resp => resp.json())
-      .then(events => {
-        dispatch({
-          type: 'FETCH_USER_EVENTS',
-          events
-        })
-      })
-      .catch(() => console.log("Can't access response. Please try again later"))
+    fetch('http://localhost:3001/api/v1/events', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(event => dispatch({type: 'ADD_EVENT', payload: event}))
   }
+
 }
 
-export const addEvent = (evnt, userId) => {
+export const editEvent = (data, eventId) => {
   debugger;
-  const configObj = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      Authorization: token()
-    },
-    credentials: 'include',
-    body: JSON.stringify({
-      name: evnt.name,
-      venue: evnt.venue,
-      date: evnt.date,
-      url: evnt.url,
-      comments: evnt.comments,
-      user_id: evnt.user_id
+  return (dispatch) => {
+    fetch(`http://localhost:3001/api/v1/events/${eventId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify(data)
     })
-  }
-  return dispatch => {
-    dispatch({type: "START_ADD", userId, evnt})
-    fetch(`http://localhost:3001/api/v1/users/${userId}/events`, configObj)
-      .then(resp => resp.json())
-      .then(() => {
-        dispatch({ type: "ADD_EVENT", evnt, userId})
-    })
+    .then(response => response.json())
+    .then(event => dispatch({type: 'EDIT_EVENT', payload: event}))
   }
 }
 
-
-
-export const deleteEvent = (eventId, userId) => {
+export const deleteEvent = (eventId) => {
   return (dispatch) => {
-     return fetch(`http://localhost:3001/api/v1/users/${userId}/events/${eventId}`, {
+    return fetch(`http://localhost:3001/api/v1/events/${eventId}`, {
       method: 'DELETE'
     })
     .then(response => response.json())
-    .then(evnt => dispatch({type: 'DELETE_EVENT', payload: evnt, eventId}))
+    .then(event => dispatch({type: 'DELETE_EVENT', payload: event}))
   }
 }

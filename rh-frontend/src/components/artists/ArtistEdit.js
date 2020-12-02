@@ -1,13 +1,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom'
 import {editArtist} from '../../actions/artistActions';
 
 class ArtistEdit extends React.Component {
 
     state = {
-        name: '',
-        genre: '',
-        times_seen: ''
+        name: "",
+        genre: "",
+        times_seen: "",
+        submitted: false
     }
 
     handleChange = (event) => {
@@ -17,24 +19,30 @@ class ArtistEdit extends React.Component {
     }
 
     handleSubmit = (event) => {
+        debugger;
         event.preventDefault()
-        let artist = {...this.state, id: this.props.artist.id}
-        this.props.editArtist(artist, this.props.artist.user.id)
+        let artist = {...this.state}
+        this.props.editArtist(artist, this.props.match.params.id)
         this.setState({
             name: '',
             genre: '',
-            times_seen: ''
+            times_seen: '',
+            submitted: true
         })
     }
 
     render() {
+        let art = this.props.artists.filter(artist => artist.id == this.props.match.params.id)[0];
+        if (this.state.submitted){
+            return <Redirect to={`/artists`}/>
+          } else {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <label>Artist Name:</label><br/>
-                    <input type="text" name="name" placeholder={this.props.artist.name} value={this.state.name} onChange={this.handleChange}/><br/>
+                    <input type="text" name="name" placeholder={art.name} value={this.state.name} onChange={this.handleChange}/><br/>
                     <label>Genre:</label><br/>
-                    <select name="genre" placeholder={this.props.artist.genre} value={this.state.genre} onChange={this.handleChange}>
+                    <select name="genre" placeholder={art.genre} value={this.state.genre} onChange={this.handleChange}>
                         <option value=''></option>
                         <option>Rock</option>
                         <option>Indie</option>
@@ -44,12 +52,13 @@ class ArtistEdit extends React.Component {
                         <option>Pop</option>
                     </select><br/>
                     <label>Times Seen:</label><br/>
-                    <input type="integer" name="times_seen" placeholder={this.props.artist.times_seen} value={this.state.times_seen} onChange={this.handleChange}/><br/>
+                    <input type="integer" name="times_seen" placeholder={art.times_seen} value={this.state.times_seen} onChange={this.handleChange}/><br/>
                     <input type="submit"/>
                 </form>
             </div>
         )
     }
+}
 }
 
 export default connect(null, {editArtist})(ArtistEdit)

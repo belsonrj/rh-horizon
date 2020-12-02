@@ -48,15 +48,32 @@
     vertical-align: -moz-middle-with-baseline;
     vertical-align: -webkit-baseline-middle;
   }
+
+  .button {
+    font-size: 10px;
+    padding: 3px 4px;
+    border-radius: 5px;
+  }
   
   .link {
+    font-size: 25px;
     vertical-align: baseline!important;
     padding: 0!important;
   }
   
   .modal {
     display: block!important;
+    height: auto;
   }
+
+  .column {
+    float: right;
+  }
+
+  .custom-modal-style {
+    width: 897px;
+    height: 802px;
+    }
   
   .nav-item{
     margin: .25rem .5rem .25rem .5rem;

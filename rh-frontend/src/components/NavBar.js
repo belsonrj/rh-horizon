@@ -1,9 +1,9 @@
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import SessionLink from './SessionLink'
+//import SessionLink from './SessionLink'
 
 const NavBar = () => {
-    const location = useLocation()
+    //const location = useLocation()
     return(
       <nav id="navbar" className="navbar navbar-expand-lg navbar-light justify-content-between secondary-background">
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav-menu" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,9 +21,6 @@ const NavBar = () => {
               <NavLink className="secondary-text" to={`/artists`}>My Artists</NavLink>
             </li>
           </ul>
-        </div>
-        <div>
-          <SessionLink location={location} />
         </div>
       </nav>
     )

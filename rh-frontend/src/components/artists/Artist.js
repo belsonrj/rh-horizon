@@ -24,8 +24,6 @@ let artist = props.artists.filter(artist => artist.id == props.match.params.id)[
               <li className="show-text">{evnt ? evnt.name : null} - {evnt ? evnt.date : null}</li>
             </div> )}
         </div>
-        <h4>Edit Artist</h4>
-          <ArtistEdit artist={artist}/>
       </div>
     )
 }

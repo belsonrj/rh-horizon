@@ -6,15 +6,6 @@ import {addEvent} from '../../actions/eventActions'
 
 class EventForm extends React.Component{
 
-//  constructor(props) {
-//    super(props);
-//    this.state = { 
-      //redirect: false
-//    };
-
-//    this.handleSubmit = this.handleSubmit.bind(this);
-//  }
-
   state = {
     name: "",
     venue: "",
@@ -24,13 +15,9 @@ class EventForm extends React.Component{
     submitted: false
   }
 
-  //state = {
-  //  ...this.constructor.cleanState
-  //}
-
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.addEvent(this.state, this.props.user.id)
+    this.props.addEvent(this.state)
     this.setState({
       name: "",
       venue: "",
@@ -42,23 +29,23 @@ class EventForm extends React.Component{
   }
 
   render(){
-    if (this.state.submitted === true){
-      return <Redirect to='/events'/>
+    if (this.state.submitted){
+      return <Redirect to={`/events`}/>
     } else {
       return(
         <>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label>Event Name: </label>
-              <input data-testid="add-playlist-input" className="form-control" type="text" name="name" value={this.state.name} onChange={e => handleInputChange.call(this, e)} /><br/>
+              <input data-testid="add-playlist-input" className="form-control" type="text" name="name" placeholder="What?" value={this.state.name} onChange={e => handleInputChange.call(this, e)} /><br/>
               <label>Venue Name: </label>
-              <input data-testid="add-playlist-input" className="form-control" type="text" name="venue" value={this.state.venue} onChange={e => handleInputChange.call(this, e)} /><br/>
+              <input data-testid="add-playlist-input" className="form-control" type="text" name="venue" placeholder="Where?" value={this.state.venue} onChange={e => handleInputChange.call(this, e)} /><br/>
               <label>Event Date: </label>
               <input data-testid="add-playlist-input" className="form-control" type="date" name="date" value={this.state.date} onChange={e => handleInputChange.call(this, e)} /><br/>
               <label>Image URL: </label>
-              <input data-testid="add-playlist-input" className="form-control" type="text" name="url" value={this.state.url} onChange={e => handleInputChange.call(this, e)} /><br/>
+              <input data-testid="add-playlist-input" className="form-control" type="text" name="url" placeholder="Copy and paste image URL here..." value={this.state.url} onChange={e => handleInputChange.call(this, e)} /><br/>
               <label>Comments/Notes: </label>
-              <input data-testid="add-playlist-input" className="form-control" type="text" name="comments" value={this.state.comments} onChange={e => handleInputChange.call(this, e)} /><br/>            
+              <input data-testid="add-playlist-input" className="form-control" type="text" name="comments" placeholder="Add Comments..." value={this.state.comments} onChange={e => handleInputChange.call(this, e)} /><br/>            
             </div>
 
             <input data-testid="add-playlist-submit" className="btn btn-primary tertiary-background" type="submit" value="add"/>
