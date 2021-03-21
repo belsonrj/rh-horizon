@@ -40,19 +40,19 @@ class ArtistEdit extends React.Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <label>Artist Name:</label><br/>
-                    <input type="text" name="name" placeholder={art.name} value={this.state.name} onChange={this.handleChange}/><br/>
+                    <input type="text" name="name" placeholder={this.state.name} defaultValue={this.state.name} onChange={this.handleChange}/><br/>
                     <label>Genre:</label><br/>
-                    <select name="genre" placeholder={art.genre} value={this.state.genre} onChange={this.handleChange}>
-                        <option value=''></option>
+                    <select name="genre" placeholder={this.state.genre} defaultValue={this.state.genre} onChange={this.handleChange}>
                         <option>Rock</option>
                         <option>Indie</option>
                         <option>Hip Hop</option>
                         <option>Metal</option>
                         <option>Country</option>
                         <option>Pop</option>
-                    </select><br/>
+                    </select>
+                    <br/>
                     <label>Times Seen:</label><br/>
-                    <input type="integer" name="times_seen" placeholder={art.times_seen} value={this.state.times_seen} onChange={this.handleChange}/><br/>
+                    <input type="integer" name="times_seen" placeholder={art.times_seen} defaultValue={this.state.times_seen} onChange={this.handleChange}/><br/><br/>
                     <input type="submit"/>
                 </form>
             </div>

@@ -7,7 +7,6 @@ class EventEdit extends React.Component {
   
     state = {
         name: "",
-        venue: "",
         date: "",
         url: "",
         comments: "",
@@ -26,7 +25,6 @@ class EventEdit extends React.Component {
         this.props.editEvent(evnt, this.props.match.params.id)
         this.setState({
             name: "",
-            venue: "",
             date: "",
             url: "",
             comments: "",
@@ -45,8 +43,6 @@ class EventEdit extends React.Component {
                 <div className="form-group">
                   <label>Event Name: </label>
                   <input data-testid="add-playlist-input" className="form-control" type="text" name="name" placeholder={evnt.name} value={this.state.name} onChange={this.handleChange} /><br/>
-                  <label>Venue Name: </label>
-                  <input data-testid="add-playlist-input" className="form-control" type="text" name="venue" placeholder={evnt.venue} value={this.state.venue} onChange={this.handleChange} /><br/>
                   <label>Event Date: </label>
                   <input data-testid="add-playlist-input" className="form-control" type="date" name="date" placeholder={evnt.date} value={this.state.date} onChange={this.handleChange} /><br/>
                   <label>Image URL: </label>

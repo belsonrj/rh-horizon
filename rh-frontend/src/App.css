@@ -1,20 +1,109 @@
+@import 'stylesheets/resources.css';
+
+html {
+  background-image: url("https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77701533133.jpg");
+  height: 100%;
+  margin-bottom: 25px;
+}
+
+body {
+  background-color: #39325d;
+  border: white double 10px;
+  margin-bottom: 10px;
+  height: 80px;
+}
+
+h1, p{
+  color: white;
+}
+
+a:hover{
+  color: yellow;
+}
+
+ol li{
+  color: yellow;
+  font-size: 20px;
+}
+
+.container{
+  margin-top: 50px;
+}
+
 .primary-text {
-    color: #252627;
+    color: white;
   }
 
 .show-text {
-    color: #56595b;
+    color: red;
+    font-size: 25px;
   }
 
+.icon{
+  background-color: white;
+}
+
+.modal {
+  display: block;
+  height: auto;
+}
+
+.modal-body {
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
+}
+
+.modal-content{
+  color: white;
+  background-color: rgba(0, 0, 0, 0.878);
+  align-items: center;
+  margin-top: 60px;
+  border: white groove 8px;
+  border-radius: 1em;
+  height: fit-content;
+}
+
+.modal-content a[type="button"]{
+  color: white;
+}
+
   .show-card{
-    border: groove;
-    width: 30rem;
-    border-width: 15px;
-    background-color: #b0e1ee!important;
+    color: white;
+    float: left;
+    display: block;
+    padding: 5px;
+    background-color: #033b4905;
+  }
+
+  .add-card{
+    color: white;
+    display: block;
+    float: left;
+    padding: 5px;
+    background-color: #033b4905;
+  }
+
+  .event-card{
+    color: white;
+    border: white double 5px;
+    padding: 8px;
+    width: 350px;
+    background-color: #f9fbfc53;
+    float: left;
+    margin: 5px;
+  }
+
+  .view-card{
+    border: white dotted 2px;
+    box-sizing: content-box;
+    float: left;
+    width: auto;
+    margin: 5px;
+    padding: 8px;
   }
   
   .secondary-background {
-    background-color: #66628c!important;
+    background-color: #39325d;
   }
   
   .tertiary-background {
@@ -31,17 +120,21 @@
   }
   
   .card-img{
-    width: 8rem;
+    width: 275px;
+    height: 200px
   }
 
   .card{
-    border: outset;
-    width: 15rem;
-    border-width: 5px;
+    align-items: center;
+    background-color: #39325d;
+    float: left;
+    border: black double 8px;
+    width: auto;
+    margin: 8px
   }
   
   .icon {
-    width: 1.25rem;
+    width: 1.75rem;
   }
   
   .icon-label {
@@ -59,11 +152,6 @@
     font-size: 25px;
     vertical-align: baseline!important;
     padding: 0!important;
-  }
-  
-  .modal {
-    display: block!important;
-    height: auto;
   }
 
   .column {
@@ -88,4 +176,8 @@
   
   .sub-form-group{
     margin-bottom: 0px;
+  }
+
+  input[type="text"] {
+    color: #39325d!important;
   }

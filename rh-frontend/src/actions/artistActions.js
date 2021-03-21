@@ -16,13 +16,13 @@ function addArtist(artist, eventId){
 
   return dispatch => {
     dispatch({type: "ADD_ARTIST", artist})
-    fetch(`http://localhost:3001/api/v1/events/${eventId}/artists`, configObj)
+    fetch(`http://localhost:3000/api/v1/events/${eventId}/artists`, configObj)
   }
 }
 
 export function fetchArtists() {
   return (dispatch) => {
-    fetch('http://localhost:3001/api/v1/artists')
+    fetch('http://localhost:3000/api/v1/artists')
     .then(resp => resp.json())
     .then(art => dispatch({
       type: 'FETCH_ARTISTS',
@@ -34,7 +34,7 @@ export function fetchArtists() {
 export const deleteArtist = (artistId) => {
 
   return (dispatch) => {
-      return fetch(`http://localhost:3001/api/v1/artists/${artistId}`, {
+      return fetch(`http://localhost:3000/api/v1/artists/${artistId}`, {
           method: 'DELETE'
       })
       .then(response => response.json())
@@ -45,7 +45,7 @@ export const deleteArtist = (artistId) => {
 export const editArtist = (data, artistId) => {
   debugger;
   return (dispatch) => {
-    fetch(`http://localhost:3001/api/v1/artists/${artistId}`, {
+    fetch(`http://localhost:3000/api/v1/artists/${artistId}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

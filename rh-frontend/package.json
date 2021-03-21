@@ -58,5 +58,8 @@
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
     "babel-preset-stage-0": "^6.24.1"
-  }
+  },
+
+  "proxy": "http://192.168.1.159:3000/"
+  
 }

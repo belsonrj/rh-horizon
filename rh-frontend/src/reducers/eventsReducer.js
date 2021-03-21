@@ -1,4 +1,8 @@
-export default function accountReducer(state = {events: []}, action) {
+const initialState = {
+  events:[]
+}
+
+export default function accountReducer(state = initialState, action) {
   switch (action.type) {
     case 'FETCH_EVENTS':
       return {events: action.payload}
@@ -24,15 +28,6 @@ export default function accountReducer(state = {events: []}, action) {
               ]
           }
         )
-//      case 'DELETE_EVENT':
-//        let eventsFour = state.events.map(event => {
-//          if (event.id === action.payload.id) {
-//            return action.payload
-//         } else {
-//            return event
-//          }
-//        })
-//        return {...state, events: eventsFour}
     default:
       return state
   }

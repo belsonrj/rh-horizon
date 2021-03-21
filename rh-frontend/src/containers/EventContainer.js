@@ -5,6 +5,7 @@ import {addEvent, deleteEvent, fetchEvents} from '../actions/eventActions'
 //import { findEvent } from '../utilities'
 import EventForm from '../components/events/EventForm'
 import ArtistForm from '../components/artists/ArtistForm'
+import VenueForm from '../components/venues/VenueForm'
 import Events from '../components/events/Events'
 import Event from '../components/events/Event'
 import EventEdit from '../components/events/EventEdit'
@@ -38,7 +39,7 @@ class EventContainer extends React.PureComponent {
             <Switch>
               <Route path={`${this.props.match.path}/new`}>
               <>
-                <ModalWrapper title="Add Event" id="add-event-form" previousUrl={this.props.match.url}>
+                <ModalWrapper title="Add New Event" id="add-event-form" previousUrl={this.props.match.url}>
                   <EventForm 
                     events={this.props.events} 
                   />
@@ -54,10 +55,18 @@ class EventContainer extends React.PureComponent {
                 </ModalWrapper> 
                 </>
               </Route>
-              
+              <Route path='/venues/new' >
+                <>
+                <ModalWrapper title="Add Venue" id="add-venue-form" previousUrl={this.props.match.url}>   
+                  <VenueForm 
+                    event={this.props.events} 
+                    filterEvent={this.filterEvent}/>
+                </ModalWrapper> 
+                </>
+              </Route>
               <Route exact path={`${this.props.match.path}/:id`} render={props => 
                 <>
-                <ModalWrapper title="Show Event" id="show-event" previousUrl={this.props.match.url}>
+                <ModalWrapper title="Event View" id="show-event" previousUrl={this.props.match.url}>
                   <Event 
                     {...props}
                     event={this.findEvent(this.props.match.params.id)}

@@ -8,7 +8,6 @@ class EventForm extends React.Component{
 
   state = {
     name: "",
-    venue: "",
     date: "",
     url: "",
     comments: "",
@@ -20,7 +19,6 @@ class EventForm extends React.Component{
     this.props.addEvent(this.state)
     this.setState({
       name: "",
-      venue: "",
       date: "",
       url: "",
       comments: "",
@@ -38,8 +36,6 @@ class EventForm extends React.Component{
             <div className="form-group">
               <label>Event Name: </label>
               <input data-testid="add-playlist-input" className="form-control" type="text" name="name" placeholder="What?" value={this.state.name} onChange={e => handleInputChange.call(this, e)} /><br/>
-              <label>Venue Name: </label>
-              <input data-testid="add-playlist-input" className="form-control" type="text" name="venue" placeholder="Where?" value={this.state.venue} onChange={e => handleInputChange.call(this, e)} /><br/>
               <label>Event Date: </label>
               <input data-testid="add-playlist-input" className="form-control" type="date" name="date" value={this.state.date} onChange={e => handleInputChange.call(this, e)} /><br/>
               <label>Image URL: </label>

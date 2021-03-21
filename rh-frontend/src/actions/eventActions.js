@@ -1,7 +1,7 @@
 
 export function fetchEvents() {
   return (dispatch) => {
-    fetch('http://localhost:3001/api/v1/events')
+    fetch('http://localhost:3000/api/v1/events')
     .then(resp => resp.json())
     .then(events => dispatch({
       type: 'FETCH_EVENTS',
@@ -12,7 +12,7 @@ export function fetchEvents() {
 
 export const addEvent = (data) => {
   return (dispatch) => {
-    fetch('http://localhost:3001/api/v1/events', {
+    fetch('http://localhost:3000/api/v1/events', {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -29,7 +29,7 @@ export const addEvent = (data) => {
 export const editEvent = (data, eventId) => {
   debugger;
   return (dispatch) => {
-    fetch(`http://localhost:3001/api/v1/events/${eventId}`, {
+    fetch(`http://localhost:3000/api/v1/events/${eventId}`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -44,7 +44,7 @@ export const editEvent = (data, eventId) => {
 
 export const deleteEvent = (eventId) => {
   return (dispatch) => {
-    return fetch(`http://localhost:3001/api/v1/events/${eventId}`, {
+    return fetch(`http://localhost:3000/api/v1/events/${eventId}`, {
       method: 'DELETE'
     })
     .then(response => response.json())

@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 //import SessionLink from './SessionLink'
 
 const NavBar = () => {
@@ -19,6 +19,9 @@ const NavBar = () => {
             </li>
             <li className="nav-item">
               <NavLink className="secondary-text" to={`/artists`}>My Artists</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="secondary-text" to={`/venues`}>My Venues</NavLink>
             </li>
           </ul>
         </div>

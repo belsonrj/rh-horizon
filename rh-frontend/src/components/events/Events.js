@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-//import EventThumbnail from './EventThumbnail'
 import addIcon from '../../assets/add-icon.png'
+import Like from './Like'
 
 class Events extends React.Component {
+
+  
+
   
   render() {
     console.log(this.props)
@@ -17,10 +20,10 @@ class Events extends React.Component {
         pathname: `/events/new`,
         context: "events"
         }}>
-        <h5>
+        <h3>
           <img className="icon" src={addIcon} alt="add button"></img>
-          <span className="mx-2 primary-text badge">New Event</span>
-        </h5>
+          <span className="mx-2 primary-text badge">Create New Event</span>
+        </h3>
       </Link>
     </div>
     <div>
@@ -29,13 +32,17 @@ class Events extends React.Component {
       <div className="card-header">
         <div className="row justify-content-between">
           <div>
-            <h3 className="badge badge-primary badge-pill">{event.name}</h3><br/>
-            <img className="card-img" src={event.url}alt="No Pic Uploaded"/><br/>
+            <h1 className="badge badge-primary badge-pill">{event.name}</h1><br/>
+            <img className="card-img" src={event.url}alt="No Pic Uploaded"/>
             <div className="card-body">
-              <h6 className="card-title">{event.date}</h6>
-                <Link className="btn btn-primary tertiary-background" to={`/events/${event.id}`} event={event}>See More</Link><br/>
-                <Link className="btn btn-primary tertiary-background" to={`/events/${event.id}/edit`} event={event}>Edit Event</Link><br/>
-                <button onClick={() => this.props.handleDelete(event.id)}>Delete</button>
+              <p>{event.date}</p>
+                <span>
+                  <Link className="btn btn-primary tertiary-background" to={`/events/${event.id}`} event={event}>View</Link>
+                  <Link className="btn btn-primary tertiary-background" to={`/events/${event.id}/edit`} event={event}>Edit</Link>
+                  </span><br /><br />
+                <div>
+                  <button onClick={() => this.props.handleDelete(event.id)}>Delete Event</button>
+                </div>
             </div> 
           </div>
         </div>
